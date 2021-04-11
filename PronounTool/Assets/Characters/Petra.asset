@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f52762af9da00e468b97ca1d2bde78f, type: 3}
+  m_Name: Petra
+  m_EditorClassIdentifier: 
+  names:
+  - Petra
+  pronouns:
+  - _subject: "They\r"
+    _object: "Them\r"
+    _possesive: "Their\r"
+    _possessivePronoun: "Theirs\r"
+    _reflexive: "Themself\r"
+    isSingular: 0
+  - _subject: "He\r"
+    _object: "Him\r"
+    _possesive: "His\r"
+    _possessivePronoun: "His\r"
+    _reflexive: "Himself\r"
+    isSingular: 0
+  unfavoredPronouns:
+  - _subject: "Ze\r"
+    _object: "Zir\r"
+    _possesive: "Zir\r"
+    _possessivePronoun: "Zirs\r"
+    _reflexive: "Zirself\r"
+    isSingular: 0
+  hasAnyPronouns: 0
+  hasNoPronouns: 0
+  _visibleOptions:
+  - "They\r"
+  - "She\r"
+  - "He\r"
+  - "Xe\r"
+  - "Fae\r"
+  - "It\r"
+  - "Ze\r"
+  - "E\r"
+  - "Ey\r"
+  - "Per\r"
+  - "Ve\r"
+  - "Ae\r"
+  - "Bun\r"
+  - Other
