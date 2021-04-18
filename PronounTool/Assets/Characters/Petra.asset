@@ -14,40 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   names:
   - Petra
-  pronouns:
-  - _subject: "They\r"
-    _object: "Them\r"
-    _possesive: "Their\r"
-    _possessivePronoun: "Theirs\r"
-    _reflexive: "Themself\r"
-    isSingular: 0
-  - _subject: "He\r"
-    _object: "Him\r"
-    _possesive: "His\r"
-    _possessivePronoun: "His\r"
-    _reflexive: "Himself\r"
-    isSingular: 0
+  pronouns: []
   unfavoredPronouns:
-  - _subject: "Ze\r"
-    _object: "Zir\r"
-    _possesive: "Zir\r"
-    _possessivePronoun: "Zirs\r"
-    _reflexive: "Zirself\r"
-    isSingular: 0
-  hasAnyPronouns: 0
+  - {fileID: 11400000, guid: 8b8a894b637eb7f4c969c3fb73a627fd, type: 2}
+  - {fileID: 11400000, guid: aec3c82cee5652e44812b05f571a5f70, type: 2}
+  hasAnyPronouns: 1
   hasNoPronouns: 0
-  _visibleOptions:
-  - "They\r"
-  - "She\r"
-  - "He\r"
-  - "Xe\r"
-  - "Fae\r"
-  - "It\r"
-  - "Ze\r"
-  - "E\r"
-  - "Ey\r"
-  - "Per\r"
-  - "Ve\r"
-  - "Ae\r"
-  - "Bun\r"
-  - Other

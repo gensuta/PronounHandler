@@ -7,6 +7,9 @@ namespace PronounHandler
     /// <summary>
     /// Character Editor allows for Character names and pronouns to be easily edited in the inspector
     /// </summary>
+    /// 
+
+/*
     [CustomEditor(typeof(Character))]
     public class CharacterEditor : Editor
     {
@@ -81,13 +84,13 @@ namespace PronounHandler
 
 
                         // chosen option autofills the current pronoun
-                        chosenOption = EditorGUILayout.Popup("Autofill Option", chosenOption, myCharacter._visibleOptions);
+                        chosenOption = EditorGUILayout.Popup("Autofill Option", chosenOption, PronounHolder.Instance._visibleOptions);
 
                         if (EditorGUI.EndChangeCheck())
                         {
-                            if (chosenOption != myCharacter._visibleOptions.Length - 1)
+                            if (chosenOption != PronounHolder.Instance._visibleOptions.Length - 1)
                             {
-                                p = myCharacter.AutoFillPronoun(chosenOption, p);
+                                p = PronounHolder.Instance.AutoFillPronoun(chosenOption, p);
                                 Debug.Log("Autofilled characters pronoun to " + p._subject);
                             }
                         }
@@ -154,13 +157,13 @@ namespace PronounHandler
 
 
                         // chosen option autofills the current pronoun
-                        chosenOption = EditorGUILayout.Popup("Pronoun Option", chosenOption, myCharacter._visibleOptions);
+                        chosenOption = EditorGUILayout.Popup("Pronoun Option", chosenOption, PronounHolder.Instance._visibleOptions);
 
                         if (EditorGUI.EndChangeCheck())
                         {
-                            if (chosenOption != myCharacter._visibleOptions.Length - 1)
+                            if (chosenOption != PronounHolder.Instance._visibleOptions.Length - 1)
                             {
-                                p = myCharacter.AutoFillPronoun(chosenOption, p);
+                                p = PronounHolder.Instance.AutoFillPronoun(chosenOption, p);
                                 Debug.Log("Autofilled characters pronoun to " + p._subject);
                             }
                         }
@@ -219,10 +222,11 @@ namespace PronounHandler
 
             if (GUILayout.Button("Refresh Pronoun Options"))
             {
-                myCharacter.RefreshPronounOptions();
+                PronounHolder.Instance.RefreshPronounOptions();
             }
 
 
         }
     }
+    */
 }

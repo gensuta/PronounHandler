@@ -7,7 +7,7 @@ namespace PronounHandler
     /// <summary>
     /// The Character class holds all the pronoun information as well as names for specific characters
     /// </summary>
-    [CreateAssetMenu(fileName = "Character", menuName = "Character Asset/Character", order = 0)]
+    [CreateAssetMenu(fileName = "Character", menuName = "Pronoun Handler/Character", order = 1)]
     public class Character : ScriptableObject
     {
         public List<string> names; // name(s) this character uses
@@ -16,16 +16,7 @@ namespace PronounHandler
         public bool hasAnyPronouns, hasNoPronouns; // no pronouns means use the character's name! Any pronouns means use any available pronouns for the character
 
 
-        // the list of pronouns being taken from the text file. This contains info that pronounOptions will use
-        string[] pronounOptionsText;
-
-        // generated from the pronounOptions text file. Allows pronouns to be autofilled for characters
-        List<Pronoun> pronounOptions;
-
-        // options are what's going to be displayed in the dropdown menu in the inspector
-        public string[] _visibleOptions;
-
-        Pronoun lastPronounUsed;
+        Pronoun lastPronounUsed; // keeping the last pronoun used to help with grammar
 
         public string GetRandomName() 
         {
@@ -34,12 +25,13 @@ namespace PronounHandler
 
         public string GetRandomPronoun(string type)
         {
-            int randP = Random.Range(0, pronouns.Count);
 
-            lastPronounUsed = pronouns[randP];
-
-            if (!hasNoPronouns && !hasAnyPronouns)
+            if (!hasNoPronouns && !hasAnyPronouns) // if you have specific pronouns you use
             {
+                int randP = Random.Range(0, pronouns.Count);
+
+                lastPronounUsed = pronouns[randP];
+
                 switch (type)
                 {
                     case ("subject"):
@@ -54,7 +46,7 @@ namespace PronounHandler
                         return pronouns[randP]._reflexive;
                 }
             }
-            else
+            else // if you don't use pronouns
             {
                 if (hasNoPronouns)
                 {
@@ -75,32 +67,41 @@ namespace PronounHandler
 
                 if (hasAnyPronouns)
                 {
-                    randP = Random.Range(0, pronounOptions.Count);
-                    lastPronounUsed = pronounOptions[randP];
-
-                    if (CheckIfUnfavored(pronounOptions[randP]))
-                    {
-                        // implement a way to grab a pronoun that's not unfavored!
-                    }
+                    Pronoun randomPronoun = GetFavoredPronoun();
+                    lastPronounUsed = randomPronoun;
 
                     switch (type)
                     {
                         case ("subject"):
-                            return pronounOptions[randP]._subject;
+                            return randomPronoun._subject;
                         case ("object"):
-                            return pronounOptions[randP]._object;
+                            return randomPronoun._object;
                         case ("possesive"):
-                            return pronounOptions[randP]._possesive;
+                            return randomPronoun._possesive;
                         case ("possessivePronoun"):
-                            return pronounOptions[randP]._possessivePronoun;
+                            return randomPronoun._possessivePronoun;
                         case ("reflexive"):
-                            return pronounOptions[randP]._reflexive;
+                            return randomPronoun._reflexive;
                     }
                 }
             }
             return "!!ERROR!!";
         }
 
+        Pronoun GetFavoredPronoun() // getting a random favored pronun
+        {
+            List<Pronoun> favoredPronouns = new List<Pronoun>();
+
+            foreach (Pronoun p in PronounHolder.Instance.pronounOptions)
+            {
+                if (!CheckIfUnfavored(p))
+                {
+                    favoredPronouns.Add(p);
+                }
+            }
+
+            return favoredPronouns[Random.Range(0, favoredPronouns.Count)];
+        }
 
         bool CheckIfUnfavored(Pronoun pronoun) // checking if this pronoun is unfavored by this character
         {
@@ -112,18 +113,19 @@ namespace PronounHandler
         }
 
 
-        // PLEASE MOVE THIS FUNCTION SOMEWHERE ELSE LATER
-        // We need to differentiate they're and he/he is etc.
-        // We need to figure out capatilization stuff as well!! please!!
-        // How do we handle words like "likes" when it comes to pronouns? Ex: he likes vs they like
         public string DecipherLine(string line)
         {
-            // [name], [obj] [sbj] [pos] [posP] [refl], [is] [was]
+            // [name], [obj] [sbj] [pos] [posP] [refl], [is] [was] , [likes|like] remember to trim! maybe get rid of is/are
+            // give positions for each to possibly get rid of these if statements :0
+            // tags!! let's call them tags and search the SO to swap it out
+
+            // research on how can you parse strings and minimizing the amt of garbage that's being generated 
+            //load in all strings and parse during loading screen and delete garbage generated before player gets in the game
 
 
 
             string s = line;
-
+           
             if (s.Contains("[name]")) s = s.Replace("[name]", GetRandomName());
 
             if (s.Contains("[object]")) s = s.Replace("[object]", GetRandomPronoun("object"));
@@ -150,95 +152,38 @@ namespace PronounHandler
                 s = s.Replace("[was]", wasString);
             }
 
+            // if we detect [[ singular | plural]]  [[ likes | like ]] we need to replace it with the proper verb
+            // Please find a better alternative  i hate this lol
+
+            int startTag = s.IndexOf("[[");
+            int middleTag = s.IndexOf('|') ;
+            int endTag = s.IndexOf("]]");
+
+            if (startTag != -1 && middleTag != -1 && endTag != -1)
+            {
+                string singularWord = s.Substring(startTag +2, middleTag - startTag -2);
+                string pluralWord = s.Substring(middleTag+1, endTag - middleTag -1);
+
+                // please rename this variable
+                string originalString = "[[" + singularWord + "|" + pluralWord + "]]";
+                string replacedWord = lastPronounUsed.isSingular ? singularWord : pluralWord;
+                replacedWord = replacedWord.Trim();
+
+                s = s.Replace(originalString, replacedWord);
+            }
+
+            //maybe add a lil error in the future so that it's easy to trace back to if someone forgot to add | or ]]
+
+           
+
             return s;
-        }
-
-
-        public Character()
-        {
-            names = new List<string>();
-            pronouns = new List<Pronoun>();
-            unfavoredPronouns = new List<Pronoun>();
-
-            names.Add("Default Name");
-            pronouns.Add(new Pronoun());
         }
 
         public void AddName(string n)
         {
             names.Add(n);
         }
-
-        //Places options into the list
-        public void RefreshPronounOptions()
-        {
-
-            TextAsset mytxtData = Resources.Load("PronounOptions") as TextAsset;
-
-            pronounOptionsText = mytxtData.text.Split('\n'); // every 5 is a new pronoun
-            pronounOptions = new List<Pronoun>();
-
-            for (int i = 0; i < pronounOptionsText.Length - 1; i += 5)
-            {
-                Pronoun p = new Pronoun();
-
-
-                p._subject = pronounOptionsText[i];
-                p._object = pronounOptionsText[i + 1];
-                p._possesive = pronounOptionsText[i + 2];
-                p._possessivePronoun = pronounOptionsText[i + 3];
-                p._reflexive = pronounOptionsText[i + 4];
-
-                pronounOptions.Add(p);
-            }
-
-
-            _visibleOptions = new string[pronounOptions.Count + 1];
-
-            for (int i = 0; i < (pronounOptions.Count); i++)
-            {
-                _visibleOptions[i] = pronounOptions[i]._subject;
-            }
-
-            _visibleOptions[pronounOptions.Count] = "Other";
-
-            Debug.Log("Successfully updated pronoun options!");
-        }
-
-        public Pronoun AutoFillPronoun(int opt, Pronoun p = null)
-        {
-            if (p != null)
-            {
-                p._subject = pronounOptions[opt]._subject;
-                p._object = pronounOptions[opt]._object;
-                p._possesive = pronounOptions[opt]._possesive;
-                p._possessivePronoun = pronounOptions[opt]._possessivePronoun;
-                p._reflexive = pronounOptions[opt]._reflexive;
-
-
-            }
-            return pronounOptions[opt];
-        }
-
     }
-
-    [System.Serializable]
-    public class Pronoun
-    {
-        public string _subject, _object, _possesive, _possessivePronoun, _reflexive;
-        public bool isSingular; // does this pronoun use is/was or are/were 
-        public Pronoun()
-        {
-            _subject = "they";
-            _object = "them";
-            _possesive = "their";
-            _possessivePronoun = "theirs";
-            _reflexive = "themself";
-        }
-    }
-
-
-
 
 }
 
