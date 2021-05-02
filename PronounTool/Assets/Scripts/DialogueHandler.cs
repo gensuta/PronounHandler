@@ -7,7 +7,7 @@ using PronounHandler;
 /// </summary>
 public class DialogueHandler : MonoBehaviour
 {
-    [TextArea(0,2)]
+    [TextArea(2,5)]
     [SerializeField] string[] dialogue;
 
     [SerializeField] int currentLine; // current line we're on in the dialogue array
@@ -35,7 +35,7 @@ public class DialogueHandler : MonoBehaviour
 
         if(currentLine < dialogue.Length)
         {
-            Debug.Log(myCharacter.DecipherLine(dialogue[currentLine]));
+            Debug.Log(LineDecipherer.Instance.DecipherLine(dialogue[currentLine],myCharacter));
 
         }
         else
