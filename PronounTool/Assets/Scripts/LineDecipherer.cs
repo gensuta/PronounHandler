@@ -93,22 +93,38 @@ namespace PronounHandler
             // We need to make sure that multiple verbs can exist within the same sentence
             // maybe have an array for each of these square brackets and |
 
-            int startTag = s.IndexOf("[[");
-            int middleTag = s.IndexOf('|');
-            int endTag = s.IndexOf("]]");
 
-            if (startTag != -1 && middleTag != -1 && endTag != -1)
+            // we're getting all the possible verb tags!
+            // we're starting at the first tag we see
+            // and saying that as long as index is greater than 0
+            //keep deciphering stuff!
+            // index will equal 0 when [[ can't be found
+
+            for (int startTag = s.IndexOf("[["); startTag >= 0; startTag = s.IndexOf("[[", startTag + 1))
             {
-                string singularWord = s.Substring(startTag + 2, middleTag - startTag - 2);
-                string pluralWord = s.Substring(middleTag + 1, endTag - middleTag - 1);
+                int middleTag = s.IndexOf('|',startTag);
+                int endTag = s.IndexOf("]]",startTag);
 
-                // please rename this variable
-                string originalString = "[[" + singularWord + "|" + pluralWord + "]]";
-                string replacedWord = currentCharacter.LastPronounUsed.isSingular ? singularWord : pluralWord;
-                replacedWord = replacedWord.Trim();
+                if (startTag != -1 && middleTag != -1 && endTag != -1)
+                {
+                    string singularWord = s.Substring(startTag + 2, middleTag - startTag - 2);
+                    string pluralWord = s.Substring(middleTag + 1, endTag - middleTag - 1);
 
-                s = s.Replace(originalString, replacedWord);
+                    // please rename this variable
+                    string originalString = "[[" + singularWord + "|" + pluralWord + "]]";
+                    string replacedWord = currentCharacter.LastPronounUsed.isSingular ? singularWord : pluralWord;
+                    replacedWord = replacedWord.Trim();
+
+                    s = s.Replace(originalString, replacedWord);
+                }
+                else
+                {
+                    Debug.LogWarning("It seems like this verb tag is missing something! Please check the current line\n" + line);
+                }
             }
+
+           
+          
 
             //maybe add a lil error in the future so that it's easy to trace back to if someone forgot to add | or ]]
 
