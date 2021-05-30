@@ -60,26 +60,28 @@ namespace PronounHandler
 
             if (lowerString.Contains("[reflexive]")) s = ReplacePronoun("[reflexive]", s, currentCharacter);
 
-            if (lowerString.Contains("[is]"))
+            if (lowerString.Contains("[is]")) 
             {
-                string isString = currentCharacter.LastPronounUsed.isSingular ? "is" : "are";
+                string isString = currentCharacter.LastPronounUsed.usesIs || currentCharacter.hasNoPronouns ? "is" : "are";
 
                 s = s.Replace("[is]", isString);
                 s = s.Replace("[IS]", isString.ToUpper());
+                s = s.Replace("[Is]", CapitalizeFirstLetter(isString, true));
 
             }
 
             if (lowerString.Contains("[was]"))
             {
-                string wasString = currentCharacter.LastPronounUsed.isSingular ? "was" : "were"; // this is called ternary!! You can use one clause using &&
+                string wasString = currentCharacter.LastPronounUsed.usesIs || currentCharacter.hasNoPronouns ? "was" : "were"; // this is called ternary!! You can use one clause using &&
 
                 s = s.Replace("[was]", wasString);
                 s = s.Replace("[WAS]", wasString.ToUpper());
+                s = s.Replace("[Was]", CapitalizeFirstLetter(wasString, true));
             }
 
             if (lowerString.Contains("['s]"))
             {
-                string apostropheString = currentCharacter.LastPronounUsed.isSingular ? "'s" : "'re"; // this is called ternary!! You can use one clause using &&
+                string apostropheString = currentCharacter.LastPronounUsed.usesIs || currentCharacter.hasNoPronouns ? "'s" : "'re"; // this is called ternary!! You can use one clause using &&
 
                 s = s.Replace("['s]", apostropheString);
                 s = s.Replace("['S]", apostropheString.ToUpper());
@@ -112,7 +114,7 @@ namespace PronounHandler
 
                     // please rename this variable
                     string originalString = "[[" + singularWord + "|" + pluralWord + "]]";
-                    string replacedWord = currentCharacter.LastPronounUsed.isSingular ? singularWord : pluralWord;
+                    string replacedWord = currentCharacter.LastPronounUsed.usesIs || currentCharacter.hasNoPronouns ? singularWord : pluralWord;
                     replacedWord = replacedWord.Trim();
 
                     s = s.Replace(originalString, replacedWord);
@@ -136,8 +138,6 @@ namespace PronounHandler
         string ReplacePronoun(string tag, string currentLine, Character currentCharacter)
         {
 
-            // we need to make sure lastPronoun used accounts for people that use no pronouns
-
             string newLine = currentLine;
 
             int startTag = tag.IndexOf('[') + 1;
@@ -145,13 +145,13 @@ namespace PronounHandler
 
             string actualTag = tag.Substring(startTag, endTag - startTag).ToLower();
 
-            if (currentLine.Contains(actualTag[0].ToString().ToUpper())) // if the first character of the tag is capitalized in the currentline
+            if (currentLine.Contains(actualTag[0].ToString().ToUpper())) // if the first character of the tag is capitalized in the currentline EX: [Object]
             {
                 string amendedTag = "[" + CapitalizeFirstLetter(actualTag, true) + "]";
                 newLine = newLine.Replace(amendedTag, currentCharacter.GetRandomPronoun(actualTag, true)); // replacing first letter upper case tag
             }
 
-            if (currentLine.Contains(actualTag.ToUpper())) // if the entire tag is capitalized in the currentline
+            if (currentLine.Contains(actualTag.ToUpper())) // if the entire tag is capitalized in the currentline EX: [OBJECT]
             {
                 newLine = newLine.Replace(tag.ToUpper(), currentCharacter.GetRandomPronoun(actualTag).ToUpper()); // replacing fully upper case tag
             }

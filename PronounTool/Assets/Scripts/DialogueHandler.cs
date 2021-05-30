@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PronounHandler;
+using TMPro;
+using UnityEngine.SocialPlatforms.GameCenter;
 /// <summary>
 /// This script is to show an example of how the pronoun tool can work
 /// </summary>
@@ -12,12 +14,15 @@ public class DialogueHandler : MonoBehaviour
 
     [SerializeField] int currentLine; // current line we're on in the dialogue array
 
-    [SerializeField] Character myCharacter;
+    public Character currentCharacter;
+
+    [SerializeField] TextMeshProUGUI dialogueText, nameText;
+    [SerializeField] GameObject textBox;
 
     // Start is called before the first frame update
     void Start()
     {
-        ShowNextLine();
+        EnableTextBox();
     }
 
     // Update is called once per frame
@@ -31,16 +36,28 @@ public class DialogueHandler : MonoBehaviour
 
     public void ShowNextLine() // shows the next line of dialogue
     {
-        currentLine++;
-
         if(currentLine < dialogue.Length)
         {
-            Debug.Log(LineDecipherer.Instance.DecipherLine(dialogue[currentLine],myCharacter));
+            dialogueText.text = LineDecipherer.Instance.DecipherLine(dialogue[currentLine],currentCharacter);
+            nameText.text = currentCharacter.GetRandomName();
 
         }
         else
         {
+            DisableTextBox();
             Debug.Log("No more dialogue to show!");
         }
+        currentLine++;
+    }
+
+    public void EnableTextBox()
+    {
+        textBox.SetActive(true);
+        ShowNextLine();
+    }
+
+    public void DisableTextBox()
+    {
+        textBox.SetActive(false);
     }
 }

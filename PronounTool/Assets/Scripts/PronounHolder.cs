@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace PronounHandler
 {
+    /// <summary>
+    /// Holds all the possible pronouns a character could have
+    /// </summary>
     public class PronounHolder : MonoBehaviour
     {
         // Can be refreshed to add pronoun sOs from a folder. Allows pronouns to be autofilled for characters
         public List<Pronoun> pronounOptions;
 
         // options are what's going to be displayed in the dropdown menu in the inspector
-        public string[] _visibleOptions;
+       // public string[] _visibleOptions;
 
         public static PronounHolder Instance;
 
@@ -27,7 +30,7 @@ namespace PronounHandler
             }
         }
 
-        public void RefreshPronounOptions()
+     /*   public void RefreshPronounOptions()
          {
 
              pronounOptions = new List<Pronoun>();
@@ -47,7 +50,7 @@ namespace PronounHandler
             
 
              Debug.Log("Successfully updated pronoun options!");
-         }
+         }*/
 
          public Pronoun AutoFillPronoun(int opt, Pronoun p = null)
          {

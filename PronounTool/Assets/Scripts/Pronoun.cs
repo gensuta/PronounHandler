@@ -8,7 +8,7 @@ namespace PronounHandler
     public class Pronoun : ScriptableObject
     {
         public string _subject, _object, _possesive, _possessivePronoun, _reflexive;
-        public bool isSingular; // does this pronoun use is/was or are/were 
+        public bool usesIs; // does this pronoun use is/was or are/were 
         public Pronoun()
         {
             _subject = "they";

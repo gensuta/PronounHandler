@@ -17,4 +17,4 @@ MonoBehaviour:
   _possesive: Xyr
   _possessivePronoun: Xyrs
   _reflexive: Xyrself
-  isSingular: 0
+  usesIs: 1
