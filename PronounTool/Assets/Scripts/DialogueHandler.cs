@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using PronounHandler;
 using TMPro;
-using UnityEngine.SocialPlatforms.GameCenter;
 /// <summary>
 /// This script is to show an example of how the pronoun tool can work
 /// </summary>

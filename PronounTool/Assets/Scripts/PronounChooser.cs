@@ -67,7 +67,8 @@ public class PronounChooser : MonoBehaviour
 
         // store pronouns into a character 
 
-
+    // ADD SLIDERS SO THAT THE PLAYER CAN CHOOSE THE MOST PREFERRED PRONOUN
+    //FIGURE OUT A GOOD WAY TO DO THIS! Each pronoun should have a percentage or something. maybe use a dictionary for this?
 
     // NOT IN THIS SCRIPT BUT
     // for choosing names you insert one and then are asked if you'd like to submit another one for yourself

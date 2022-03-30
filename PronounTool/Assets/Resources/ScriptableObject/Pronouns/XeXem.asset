@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b8b9dfe4ef90f949b1a3900baa88c24, type: 3}
-  m_Name: FaeFaer
+  m_Script: {fileID: 11500000, guid: 3f233038f2d693840a17b628848477a5, type: 3}
+  m_Name: XeXem
   m_EditorClassIdentifier: 
-  _subject: Fae
-  _object: Faer
-  _possesive: Faer
-  _possessivePronoun: Faers
-  _reflexive: Faerself
-  isSingular: 0
+  pronoun:
+    _subject: xe
+    _object: xem
+    _possesive: xyrs
+    _possessivePronoun: xyrs
+    _reflexive: xyrself
+    usesIs: 0

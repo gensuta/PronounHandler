@@ -14,9 +14,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   names:
   - Petra
-  pronouns: []
-  unfavoredPronouns:
-  - {fileID: 11400000, guid: 8b8a894b637eb7f4c969c3fb73a627fd, type: 2}
-  - {fileID: 11400000, guid: aec3c82cee5652e44812b05f571a5f70, type: 2}
+  _pronouns: []
+  _unfavoredPronouns:
+  - {fileID: 11400000, guid: c63775239cf68dd4ba6e166e1c272ee3, type: 2}
   hasAnyPronouns: 0
   hasNoPronouns: 1
+  pronouns: []
+  unfavoredPronouns:
+  - _subject: he
+    _object: him
+    _possesive: his
+    _possessivePronoun: his
+    _reflexive: hiself
+    usesIs: 1
+  - _subject: he
+    _object: him
+    _possesive: his
+    _possessivePronoun: his
+    _reflexive: hiself
+    usesIs: 1
+  - _subject: he
+    _object: him
+    _possesive: his
+    _possessivePronoun: his
+    _reflexive: hiself
+    usesIs: 1
+  - _subject: he
+    _object: him
+    _possesive: his
+    _possessivePronoun: his
+    _reflexive: hiself
+    usesIs: 1
+  - _subject: he
+    _object: him
+    _possesive: his
+    _possessivePronoun: his
+    _reflexive: hiself
+    usesIs: 1
+  - _subject: he
+    _object: him
+    _possesive: his
+    _possessivePronoun: his
+    _reflexive: hiself
+    usesIs: 1

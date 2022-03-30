@@ -34,6 +34,10 @@ namespace PronounHandler
         /// <returns> newly parsed line with appropiate pronouns and grammar! </returns>
         public string DecipherLine(string line, Character currentCharacter)
         {
+            //TODO: Put this in a better spot
+            currentCharacter.RefreshPronouns(); // checking if the character has all the pronoun info updated first
+
+
             // if the tag is capitalized like [Object] we want to use He, She or They, instead of he, shey, or they
             // if the tag is entirely in uppercase we ant to capitalize the entire pronoun for example [OBJECT] would make this appear - where is HE going
 

@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b8b9dfe4ef90f949b1a3900baa88c24, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f233038f2d693840a17b628848477a5, type: 3}
   m_Name: SheHer
   m_EditorClassIdentifier: 
-  _subject: She
-  _object: Her
-  _possesive: Her
-  _possessivePronoun: Hers
-  _reflexive: Herself
-  isSingular: 1
+  pronoun:
+    _subject: she
+    _object: her
+    _possesive: her
+    _possessivePronoun: hers
+    _reflexive: herself
+    usesIs: 1

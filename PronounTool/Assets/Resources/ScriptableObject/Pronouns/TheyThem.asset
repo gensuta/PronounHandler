@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b8b9dfe4ef90f949b1a3900baa88c24, type: 3}
-  m_Name: XeXem
+  m_Script: {fileID: 11500000, guid: 3f233038f2d693840a17b628848477a5, type: 3}
+  m_Name: TheyThem
   m_EditorClassIdentifier: 
-  _subject: Xe
-  _object: Xem
-  _possesive: Xyr
-  _possessivePronoun: Xyrs
-  _reflexive: Xyrself
-  usesIs: 1
+  pronoun:
+    _subject: they
+    _object: them
+    _possesive: their
+    _possessivePronoun: theirs
+    _reflexive: themself
+    usesIs: 0

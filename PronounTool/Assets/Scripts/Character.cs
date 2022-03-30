@@ -11,12 +11,39 @@ namespace PronounHandler
     public class Character : ScriptableObject
     {
         public List<string> names; // name(s) this character uses
-        public List<Pronoun> pronouns; // pronouns this character uses
-        public List<Pronoun> unfavoredPronouns; // if a character uses any pronouns, this variable is to mark any they don't like
+        [SerializeField] List<PronounObject> _pronouns; // pronouns this character uses
+        [SerializeField] List<PronounObject> _unfavoredPronouns; // if a character uses any pronouns, this variable is to mark any they don't like
         public bool hasAnyPronouns, hasNoPronouns; // no pronouns means use the character's name! Any pronouns means use any available pronouns for the character
-        
+
+        // TODO: Ask if this was a dumb idea ( the below )
+        public List<Pronoun> pronouns;
+        public List<Pronoun> unfavoredPronouns;
+
+
+
         Pronoun lastPronounUsed; // keeping the last pronoun used to help with grammar
         public Pronoun LastPronounUsed { get => lastPronounUsed;}
+
+
+        public void RefreshPronouns()
+        {
+            foreach(PronounObject p in _pronouns) // adding in all the pronoun objects
+            {
+                if (!pronouns.Contains(p.pronoun))
+                {
+                    pronouns.Add(p.pronoun);
+                }
+            }
+
+            foreach(PronounObject p in _unfavoredPronouns)
+            {
+                if (!unfavoredPronouns.Contains(p.pronoun))
+                {
+                    unfavoredPronouns.Add(p.pronoun);
+                }
+            }
+        }
+
 
         public string GetRandomName() 
         {
@@ -31,6 +58,7 @@ namespace PronounHandler
                 int randP = Random.Range(0, pronouns.Count);
 
                 lastPronounUsed = pronouns[randP];
+                Debug.Log("Setting last pronoun used to: " + pronouns[randP]._object);
 
                 switch (type)
                 {
@@ -69,6 +97,8 @@ namespace PronounHandler
                 {
                     Pronoun randomPronoun = GetFavoredPronoun();
                     lastPronounUsed = randomPronoun;
+
+                    Debug.Log("Setting last pronoun used to: " + randomPronoun._object);
 
                     switch (type)
                     {
