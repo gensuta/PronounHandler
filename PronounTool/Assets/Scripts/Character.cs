@@ -44,12 +44,21 @@ namespace PronounHandler
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string GetRandomName() 
         {
             return names[Random.Range(0, names.Count)];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="capitalized"></param>
+        /// <returns></returns>
         public string GetRandomPronoun(string type, bool capitalized = false)
         {
 
@@ -120,14 +129,17 @@ namespace PronounHandler
 
 
   
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         Pronoun GetFavoredPronoun() // getting a random favored pronun
         {
             List<Pronoun> favoredPronouns = new List<Pronoun>();
 
             foreach (Pronoun p in PronounHolder.Instance.pronounOptions)
             {
-                if (!CheckIfUnfavored(p))
+                if (!isUnfavored(p))
                 {
                     favoredPronouns.Add(p);
                 }
@@ -136,8 +148,14 @@ namespace PronounHandler
             return favoredPronouns[Random.Range(0, favoredPronouns.Count)];
         }
 
-        bool CheckIfUnfavored(Pronoun pronoun) // checking if this pronoun is unfavored by this character
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pronoun"></param>
+        /// <returns></returns>
+        bool isUnfavored(Pronoun pronoun) // checking if this pronoun is unfavored by this character
         {
+            //TODO: Um? Why is it called unfavored? Maybe we should track the favorites instead of tracking the not favorites?
             if(unfavoredPronouns.Contains(pronoun))
             {
                 return true;

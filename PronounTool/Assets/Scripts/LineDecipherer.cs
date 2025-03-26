@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace PronounHandler
 {    
+    /// <summary>
+    /// 
+    /// </summary>
     public class LineDecipherer : MonoBehaviour
     {
 
@@ -139,6 +142,13 @@ namespace PronounHandler
             return s;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <param name="currentLine"></param>
+        /// <param name="currentCharacter"></param>
+        /// <returns></returns>
         string ReplacePronoun(string tag, string currentLine, Character currentCharacter)
         {
 
@@ -165,6 +175,12 @@ namespace PronounHandler
             return newLine;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="word"></param>
+        /// <param name="capitalized"></param>
+        /// <returns></returns>
         public static string CapitalizeFirstLetter(string word, bool capitalized = false) // kinda goofy but if you want the letter capitalized we return 
         {
             if (capitalized)

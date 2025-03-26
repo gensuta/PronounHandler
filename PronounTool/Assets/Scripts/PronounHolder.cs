@@ -11,7 +11,7 @@ namespace PronounHandler
     {
 
 
-
+        //TODO: Have two lists. One with pronouns that uses is. Another list where pronouns don't use is
         public List<Pronoun> pronounOptions; // developers can type in pronounOptions or have it transfer from a textfile
 
        // options are what's going to be displayed in the dropdown menu in the inspector
@@ -35,6 +35,9 @@ namespace PronounHandler
         
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void RefreshPronounOptions()
          {
 
@@ -77,6 +80,7 @@ namespace PronounHandler
             {
                 if (!pronounOptions.Contains(pronounObject.pronoun))
                 {
+                   
                     //TODO: We need to make sure we're not adding the same exact pronoun twice
                     pronounOptions.Add(pronounObject.pronoun);
 

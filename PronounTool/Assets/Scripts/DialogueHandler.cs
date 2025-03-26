@@ -33,6 +33,9 @@ public class DialogueHandler : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void ShowNextLine() // shows the next line of dialogue
     {
         if(currentLine < dialogue.Length)
@@ -49,12 +52,18 @@ public class DialogueHandler : MonoBehaviour
         currentLine++;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void EnableTextBox()
     {
         textBox.SetActive(true);
         ShowNextLine();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void DisableTextBox()
     {
         textBox.SetActive(false);

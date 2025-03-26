@@ -27,6 +27,9 @@ public class PronounChooser : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void DisplayPronouns()
     {
         foreach(Pronoun p in pronounHolder.pronounOptions)
